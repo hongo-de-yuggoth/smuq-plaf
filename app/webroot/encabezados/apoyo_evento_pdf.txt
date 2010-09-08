@@ -1,0 +1,13 @@
+<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
+	<tr align="left">
+		<td width="85"><img src="/smuqplaf/app/webroot/img/logouq.gif" alt="" /></td>
+		<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
+	</tr>
+	<tr align="right" valign="middle">
+		<td width="85"></td>
+		<td width="160"><b>Código:</b> A.AC-01.00.03.F.01</td>
+		<td width="160"><b>Versión:</b> 3</td>
+		<td width="*"><b>Fecha:</b> 2010/5/12</td>
+	</tr>
+	<tr align="left"><td width="*" align="center"><b>FORMATO DE SOLICITUD DE APOYO A EVENTOS</b></td></tr>
+</tbody></table>
