@@ -2,11 +2,9 @@
 echo $html->css('menu_navegacion');
 echo $html->css('vista');
 echo $html->css('tabla_blue/style');
-echo $html->css('pager/jquery.tablesorter.pager');
 echo $html->css('calendario');
 echo $javascript->link('jquery-1.3.2.min');
 echo $javascript->link('jquery.tablesorter.min');
-echo $javascript->link('jquery.tablesorter.pager');
 echo $javascript->link('calendario');
 echo $javascript->link('validaciones');
 echo $javascript->link('adm_principal/consultar_reparaciones');
@@ -178,36 +176,8 @@ echo $javascript->link('adm_principal/consultar_reparaciones');
 				
 				<tr align="left">
 					<td colspan="2">
-						<div id='resultados' style='display:none; overflow:auto; width:580px;'>
-							<table id='tabla_resultados' class='tablesorter'>
-								<thead>
-									<tr>
-									    <th>Número<br>Solicitud&nbsp;&nbsp;&nbsp;&nbsp;</th> 
-									    <th>Oficina</th>
-										 <th>Solicitante</th>
-										 <th>Lugar</th>
-										 <th>Tipo de<br>Servicio</th>
-									    <th>Fecha<br>Solicitud</th>
-										 <th>Estado&nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</tr>
-								</thead> 
-								<tbody></tbody>
-							</table>
-							<div class="pager" id="pager" align='center' style='position: relative;'>
-								<form>
-									<img class="first" src="/img/pager/first.png"/>
-									<img class="prev" src="/img/pager/prev.png"/>
-									<input type="text" class="pagedisplay" size='10' style="text-align:center;" />
-									<img class="next" src="/img/pager/next.png"/>
-									<img class="last" src="/img/pager/last.png"/>
-									<select class="pagesize">
-										<option value="10" selected="selected">10</option>
-										<option value="20">20</option>
-										<option value="30">30</option>
-										<option value="40">40</option>
-									</select>
-								</form>
-							</div>
+						<div id='resultados' style='display:none; overflow:auto; width:580px; height:400px;'>
+							<table id='tabla_resultados' class='tablesorter' style='overflow:auto; width:860px;'></table>
 						</div>
 					</td>
 				</tr>

@@ -6,8 +6,11 @@ function cargar_tabla(datos_json)
 	if ( datos_json.resultado == true )
 	{
 		// la cargamos en la página.
+		var thead = '<thead><tr><th>N&uacute;mero<br>Solicitud&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Oficina</th><th>Solicitante</th><th>Lugar</th><th>Tipo de<br>Servicio</th><th>Fecha<br>Solicitud</th><th>Estado&nbsp;&nbsp;&nbsp;&nbsp;</th></tr></thead>';
+		var tbody = '<tbody></tbody>';
+		jQuery('#tabla_resultados').empty().html(thead).append(tbody);
 		jQuery('#tabla_resultados tbody').html(datos_json.filas_tabla);
-		jQuery('#tabla_resultados').tablesorter().tablesorterPager({container:jQuery('#pager'), positionFixed:false});
+		jQuery('#tabla_resultados').tablesorter({widthFixed: false}).trigger("update");
 		jQuery('#resultados').show();
 		jQuery('#error_consulta').html('Se encontraron las siguientes solicitudes.').show();
 		jQuery('#total_registros').html('<b>TOTAL:</b> '+datos_json.count+' registro(s)').show();
