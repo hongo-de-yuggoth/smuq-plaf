@@ -29,7 +29,7 @@ $(document).ready(function()
 	{
 		if ( confirm('¿Está seguro de querer archivar esta solicitud?') )
 		{
-			$('#solucion').attr('action', '/smuqplaf/apoyo_evento_solicitudes/archivar/'+jQuery('#id_solicitud').val()).submit();
+			$('#solucion').attr('action', '/apoyo_evento_solicitudes/archivar/'+jQuery('#id_solicitud').val()).submit();
 		}
 	});
 	

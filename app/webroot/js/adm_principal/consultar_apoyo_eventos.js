@@ -28,7 +28,7 @@ function buscar_solicitudes(frase_busqueda, criterio_fecha, fecha_1, fecha_2, mo
 	$.ajax(
 	{
 		type: "POST",
-		url: '/smuqplaf/apoyo_evento_solicitudes/buscar/'+frase_busqueda+'/'+criterio_fecha+'/'+fecha_1+'/'+fecha_2+'/'+mostrar_solicitudes+'/'+criterio_campo+'/'+criterio_oficina,
+		url: '/apoyo_evento_solicitudes/buscar/'+frase_busqueda+'/'+criterio_fecha+'/'+fecha_1+'/'+fecha_2+'/'+mostrar_solicitudes+'/'+criterio_campo+'/'+criterio_oficina,
 		dataType: 'json',
 		cache: false,
 		async: false,
@@ -55,7 +55,7 @@ function buscar_solicitud(id)
 	$.ajax(
 	{
 		type: "POST",
-		url: '/smuqplaf/apoyo_evento_solicitudes/info_solicitud/'+id,
+		url: '/apoyo_evento_solicitudes/info_solicitud/'+id,
 		dataType: 'json',
 		cache: false,
 		async: false,
@@ -67,7 +67,7 @@ function buscar_solicitud(id)
 
 function actualizar_link_xls(frase_busqueda, criterio_fecha, fecha_1, fecha_2, mostrar_solicitudes, criterio_campo, criterio_oficina)
 {
-	jQuery('#archivo_xls a').attr('href', '/smuqplaf/apoyo_evento_solicitudes/exportar_xls/'+frase_busqueda+'/'+criterio_fecha+'/'+fecha_1+'/'+fecha_2+'/'+mostrar_solicitudes+'/'+criterio_campo+'/'+criterio_oficina);
+	jQuery('#archivo_xls a').attr('href', '/apoyo_evento_solicitudes/exportar_xls/'+frase_busqueda+'/'+criterio_fecha+'/'+fecha_1+'/'+fecha_2+'/'+mostrar_solicitudes+'/'+criterio_campo+'/'+criterio_oficina);
 	jQuery('#archivo_xls').show();
 }
 

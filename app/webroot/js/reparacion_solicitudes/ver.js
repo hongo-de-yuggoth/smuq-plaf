@@ -72,7 +72,7 @@ jQuery(document).ready(function()
 		{
 			if ( confirm('¿Está seguro de querer archivar esta solicitud?') )
 			{
-				jQuery('#solucion').attr('action', '/smuqplaf/reparacion_solicitudes/archivar/'+jQuery('#id_solicitud').val()).submit();
+				jQuery('#solucion').attr('action', '/reparacion_solicitudes/archivar/'+jQuery('#id_solicitud').val()).submit();
 			}
 		}
 	});

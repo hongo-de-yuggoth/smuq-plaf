@@ -5,7 +5,7 @@ function existe_login(login)
 	$.ajax(
 	{
 		type: "POST",
-		url: '/smuqplaf/usuarios/existe_login/' + login,
+		url: '/usuarios/existe_login/' + login,
 		dataType: 'text',
 		cache: false,
 		async: false,

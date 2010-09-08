@@ -24,7 +24,7 @@ function estado_funcionario(id_funcionario)
 	$.ajax(
 	{
 		type: "POST",
-		url: '/smuqplaf/funcionarios/estado_actual/'+id_funcionario,
+		url: '/funcionarios/estado_actual/'+id_funcionario,
 		dataType: 'json',
 		cache: false,
 		async: false,
@@ -50,7 +50,7 @@ function cargar_funcionarios()
 	$.ajax(
 	{
 		type: "POST",
-		url: '/smuqplaf/funcionarios/cargar_select/',
+		url: '/funcionarios/cargar_select/',
 		dataType: 'json',
 		cache: false,
 		async: false,
@@ -108,7 +108,7 @@ $(document).ready(function()
 			$.ajax(
 			{
 				type: "POST",
-				url: '/smuqplaf/funcionarios/existe_funcionario/' + $('#nombre_funcionario_crear').val(),
+				url: '/funcionarios/existe_funcionario/' + $('#nombre_funcionario_crear').val(),
 				dataType: 'json',
 				cache: false,
 				async: false,
@@ -120,7 +120,7 @@ $(document).ready(function()
 						$.ajax(
 						{
 							type: "POST",
-							url: '/smuqplaf/funcionarios/crear/' + $('#nombre_funcionario_crear').val(),
+							url: '/funcionarios/crear/' + $('#nombre_funcionario_crear').val(),
 							dataType: 'json',
 							cache: false,
 							async: false,
@@ -185,7 +185,7 @@ $(document).ready(function()
 				$.ajax(
 				{
 					type: "POST",
-					url: '/smuqplaf/funcionarios/existe_funcionario/'+$('#nombre_funcionario_modificar').val(),
+					url: '/funcionarios/existe_funcionario/'+$('#nombre_funcionario_modificar').val(),
 					dataType: 'json',
 					cache: false,
 					async: false,
@@ -216,7 +216,7 @@ $(document).ready(function()
 				$.ajax(
 				{
 					type: "POST",
-					url: '/smuqplaf/funcionarios/modificar/'+$('#id_funcionario_modificar').val()+'/'+nuevo_nombre+'/'+nuevo_estado+'/',
+					url: '/funcionarios/modificar/'+$('#id_funcionario_modificar').val()+'/'+nuevo_nombre+'/'+nuevo_estado+'/',
 					dataType: 'json',
 					cache: false,
 					async: false,
@@ -253,7 +253,7 @@ $(document).ready(function()
 			$.ajax(
 			{
 				type: "POST",
-				url: '/smuqplaf/funcionarios/eliminar/'+$('#id_funcionario_eliminar').val(),
+				url: '/funcionarios/eliminar/'+$('#id_funcionario_eliminar').val(),
 				dataType: 'json',
 				cache: false,
 				async: false,

@@ -35,7 +35,7 @@ $(document).ready(function()
 				$('#clave').attr('name', 'data[Usuario][clave]');
 			}
 			
-			$('#usuario').attr('action', '/smuqplaf/usuarios/modificar');
+			$('#usuario').attr('action', '/usuarios/modificar');
 			return true;
 		}
 		else

@@ -9,22 +9,22 @@ class UsrCencoController extends AppController
 	var $opciones_menu = array
 	(
 		array('titulo' => 'Inicio',
-				'link' => '/smuqplaf/',
+				'link' => '/',
 				'id' => 'inicio'),
 		array('titulo' => 'Solicitar Apoyo para un Evento',
-				'link' => '/smuqplaf/usr_cenco/crear_solicitud_apoyo_evento',
+				'link' => '/usr_cenco/crear_solicitud_apoyo_evento',
 				'id' => 'crear_solicitud_apoyo_evento'),
 		array('titulo' => 'Solicitar una Reparación',
-				'link' => '/smuqplaf/usr_cenco/crear_solicitud_reparacion',
+				'link' => '/usr_cenco/crear_solicitud_reparacion',
 				'id' => 'crear_solicitud_reparacion'),
 		array('titulo' => 'Actualizar Datos de Usuario',
-				'link' => '/smuqplaf/usr_cenco/actualizar_datos_usuario',
+				'link' => '/usr_cenco/actualizar_datos_usuario',
 				'id' => 'actualizar_datos_usuario'),
 		array('titulo' => 'Ayuda / Manual',
-				'link' => '/smuqplaf/ayuda/',
+				'link' => '/ayuda/',
 				'id' => 'ayuda'),
 		array('titulo' => 'Cerrar Sesión',
-				'link' => '/smuqplaf/logout',
+				'link' => '/logout',
 				'id' => 'cerrar')
 	);
 	

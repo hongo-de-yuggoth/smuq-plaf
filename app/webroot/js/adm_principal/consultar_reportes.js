@@ -105,7 +105,7 @@ jQuery(document).ready(function()
 			parametro = parametro+jQuery('#oficina_sr').val()+'/'+jQuery('#año_meses_sr').val();
 		}
 		
-		jQuery('#img_reporte').attr('src', '/smuqplaf/reportes_estadisticos/'+reporte_seleccionado+parametro);
+		jQuery('#img_reporte').attr('src', '/reportes_estadisticos/'+reporte_seleccionado+parametro);
 		jQuery('#reporte').show();
 	});
 	//--------------------------------------------------------------------------
