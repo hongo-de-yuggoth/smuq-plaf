@@ -136,3 +136,20 @@ ol {
 	border-style: solid;
 	padding: 5px;
 }
+
+.contexto {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.contexto_link {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color:black;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  text-decoration: none;
+}

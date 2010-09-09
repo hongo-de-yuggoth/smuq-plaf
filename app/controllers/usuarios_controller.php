@@ -37,6 +37,8 @@ class UsuariosController extends AppController
 			{
 				$this->Session->write('Usuario.id', $usuario['Usuario']['id']);
 				$this->Session->write('Usuario.id_grupo', $usuario['Usuario']['id_grupo']);
+				$this->Session->write('Usuario.nombre', 'Oficina #'.$usuario['Usuario']['Cencos_id']);
+				//$this->Session->write('Usuario.nombre', mb_convert_case($usuario['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8"));
 				return true;
 			}
 			else

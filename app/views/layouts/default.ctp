@@ -16,7 +16,17 @@
 <div align="center">
 	<div id="header"><?php echo $html->image('barra_superior4.gif', array('border' => '0')); ?></div>
 	<div id="contenedor">
-		<div id="contenido"><?php echo $content_for_layout; ?></div>
+		<div id="contenido">
+			<div id="contexto_usuario" align="left" style="display:<?php echo $display_contexto; ?>; height:30px;">
+				<table width="100%">
+					<tr>
+						<td width="*" align="left" class="contexto"><?php echo $contexto; ?></td>
+						<td width="100"><div><a href="/logout"><div align="center" class="contexto_link">Cerrar Sesión</div></a></div></td>
+					</tr>
+				</table>
+			</div>
+			<?php echo $content_for_layout; ?>
+		</div>
 	</div>
 	<div id="footer">
 		<table width="100%">

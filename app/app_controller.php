@@ -8,6 +8,7 @@ class AppController extends Controller
 	function beforeFilter()
 	{
 		$this->disableCache();
+		$this->set('display_contexto', 'none');//***
 		
 		if ( $this->Session->check('Usuario.id_grupo') )
 		{
@@ -17,6 +18,8 @@ class AppController extends Controller
 				$this->redirect(array('controller' => 'usuarios',
 											'action' => 'denegado'));
 			}
+			$this->set('display_contexto', 'block');
+			$this->set('contexto', 'Bienvenido, '.$this->Session->read('Usuario.nombre'));
 		}
 		else
 		{
