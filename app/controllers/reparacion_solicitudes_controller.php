@@ -18,7 +18,7 @@ class ReparacionSolicitudesController extends AppController
 	var $encabezado_reparacion_pdf =
 	'<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
 		<tr align="left">
-			<td width="85"><img src="/smuqplaf/app/webroot/img/logouq.gif" alt="" /></td>
+			<td width="85"><img src="/app/webroot/img/logouq.gif" alt="" /></td>
 			<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
 		</tr>
 		<tr align="right">
@@ -533,7 +533,7 @@ class ReparacionSolicitudesController extends AppController
 			foreach ( $solicitudes_info as $solicitud )
 			{
 				$nombre_oficina = mb_convert_case($solicitud['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
-				$filas_tabla .= '<tr><td><a href="/smuqplaf/reparacion_solicitudes/ver/'.$solicitud['ReparacionSolicitud']['id'].'">'.$solicitud['ReparacionSolicitud']['id'].'</a></td>';
+				$filas_tabla .= '<tr><td><a href="/reparacion_solicitudes/ver/'.$solicitud['ReparacionSolicitud']['id'].'" title="Ver información completa de la solicitud" alt="Ver información completa de la solicitud" target="_self">'.$solicitud['ReparacionSolicitud']['id'].'</a></td>';
 				$filas_tabla .= '<td>'.$nombre_oficina.'</td>';
 				$filas_tabla .= '<td>'.$solicitud['ReparacionSolicitud']['solicitante'].'</td>';
 				$filas_tabla .= '<td>'.$solicitud['ReparacionSolicitud']['lugar'].'</td>';

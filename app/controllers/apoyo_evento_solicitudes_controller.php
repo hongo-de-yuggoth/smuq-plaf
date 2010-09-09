@@ -18,7 +18,7 @@ class ApoyoEventoSolicitudesController extends AppController
 	var $encabezado_apoyo_evento_pdf =
 	'<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
 	<tr align="left">
-		<td width="85"><img src="/smuqplaf/app/webroot/img/logouq.gif" alt="" /></td>
+		<td width="85"><img src="/app/webroot/img/logouq.gif" alt="" /></td>
 		<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
 	</tr>
 	<tr align="right" valign="middle">
@@ -547,7 +547,7 @@ class ApoyoEventoSolicitudesController extends AppController
 			foreach ( $solicitudes_info as $solicitud )
 			{
 				$nombre_standard = mb_convert_case($solicitud['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
-				$filas_tabla .= '<tr><td><a href="/smuqplaf/apoyo_evento_solicitudes/ver/'.$solicitud['ApoyoEventoSolicitud']['id'].'">'.$solicitud['ApoyoEventoSolicitud']['id'].'</a></td>';
+				$filas_tabla .= '<tr><td><a href="/apoyo_evento_solicitudes/ver/'.$solicitud['ApoyoEventoSolicitud']['id'].'" title="Ver información completa de la solicitud" alt="Ver información completa de la solicitud" target="_self">'.$solicitud['ApoyoEventoSolicitud']['id'].'</a></td>';
 				$filas_tabla .= '<td>'.$nombre_standard.'</td>';
 				$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['solicitante'].'</td>';
 				$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['lugar'].'</td>';
