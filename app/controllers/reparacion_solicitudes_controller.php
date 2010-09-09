@@ -5,6 +5,7 @@ class ReparacionSolicitudesController extends AppController
 	var $uses = array('ReparacionSolicitud');
 	var $components = array('Tiempo', 'Email');
 	var $helpers = array('Html', 'Javascript');
+	var $id_grupo = '*';
 	var $estados = array
 	(
 		'a' => 'Archivada',
@@ -29,10 +30,6 @@ class ReparacionSolicitudesController extends AppController
 		</tr>
 		<tr align="left"><td width="*" align="center"><b>FORMATO DE SOLICITUD DE REPARACIONES</b></td></tr>
 	</tbody></table>';
-	
-	//--------------------------------------------------------------------------
-	
-	function beforeFilter(){}
 	
 	//--------------------------------------------------------------------------
 	

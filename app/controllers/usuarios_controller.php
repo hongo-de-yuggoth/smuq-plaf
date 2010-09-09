@@ -3,10 +3,7 @@ class UsuariosController extends AppController
 {
 	var $name = 'Usuarios';
 	var $helpers = array('Html', 'Form', 'Javascript');
-	
-	//--------------------------------------------------------------------------
-	
-	function beforeFilter(){}
+	var $id_grupo = '*';
 	
 	//--------------------------------------------------------------------------
 	

@@ -5,7 +5,11 @@ class FuncionariosController extends AppController
 	var $uses = array('Funcionario');
 	//--------------------------------------------------------------------------
 	
-	function beforeFilter(){}
+	function beforeFilter()
+	{
+		$this->set('display_contexto', 'none');
+		$this->set('contexto', '');
+	}
 	
 	//--------------------------------------------------------------------------
 	

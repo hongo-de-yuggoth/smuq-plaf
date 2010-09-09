@@ -3,7 +3,11 @@ class CentroCostosController extends AppController
 {
 	//--------------------------------------------------------------------------
 	
-	function beforeFilter(){}
+	function beforeFilter()
+	{
+		$this->set('display_contexto', 'none');
+		$this->set('contexto', '');
+	}
 	
 	//--------------------------------------------------------------------------
 	

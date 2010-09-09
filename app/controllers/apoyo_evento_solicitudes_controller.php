@@ -5,6 +5,7 @@ class ApoyoEventoSolicitudesController extends AppController
 	var $uses = array('ApoyoEventoSolicitud', 'Insumo', 'InsumosEvento');
 	var $components = array('Tiempo', 'Email');
 	var $helpers = array('Html', 'Javascript', 'Xls');
+	var $id_grupo = '*';
 	var $estados = array
 	(
 		'a' => 'Archivada',
@@ -29,10 +30,6 @@ class ApoyoEventoSolicitudesController extends AppController
 	</tr>
 	<tr align="left"><td width="*" align="center"><b>FORMATO DE SOLICITUD DE APOYO A EVENTOS</b></td></tr>
 	</tbody></table>';
-	
-	//--------------------------------------------------------------------------
-	
-	function beforeFilter(){}
 	
 	//--------------------------------------------------------------------------
 	
