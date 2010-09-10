@@ -27,15 +27,21 @@ class UsuariosController extends AppController
 	{
 		if ( !empty($data) )
 		{
-			$usuario = $this->Usuario->find('first', array('conditions' => array('Usuario.login' => strtolower($data['Usuario']['login']),
-																										'Usuario.clave' => Security::hash($data['Usuario']['clave'], null, true))));
+			$this->Usuario->recursive = 1;
+			$usuario = $this->Usuario->find('first', array
+			(
+				'conditions' => array
+				(
+					'Usuario.login' => strtolower($data['Usuario']['login']),
+					'Usuario.clave' => Security::hash($data['Usuario']['clave'], null, true)
+				)
+			));
 			
 			if ( !empty($usuario) )
 			{
 				$this->Session->write('Usuario.id', $usuario['Usuario']['id']);
 				$this->Session->write('Usuario.id_grupo', $usuario['Usuario']['id_grupo']);
-				$this->Session->write('Usuario.nombre', 'Oficina #'.$usuario['Usuario']['Cencos_id']);
-				//$this->Session->write('Usuario.nombre', mb_convert_case($usuario['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8"));
+				$this->Session->write('Usuario.nombre', mb_convert_case($usuario['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8"));
 				return true;
 			}
 			else
