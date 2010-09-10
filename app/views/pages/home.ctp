@@ -1,16 +1,13 @@
 <?php
 echo $html->css('menu_navegacion');
 echo $html->css('vista');
-//echo $javascript->link('jquery-1.3.2.min');
 ?>
+
 
 <div id="menu_navegacion">
 	<div class="cuerpo_menu">
 		<ul>
-			<li id="inicio" class="selected"><a href="/">Inicio</a></li>
-			<li id="apoyo_eventos"><a href="/usr_cenco/crear_solicitud_apoyo_evento">Solicitar Apoyo para un Evento</a></li>
-			<li id="reparaciones"><a href="/usr_cenco/crear_solicitud_reparacion">Solicitar una Reparación</a></li>
-			<li id="acerca_de"><a href="/acerca_de">Acerca de SICMUQ</a></li>
+			<?php echo $opciones_menu; ?>
 		</ul>
 	</div>
 </div>

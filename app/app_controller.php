@@ -8,7 +8,6 @@ class AppController extends Controller
 	function beforeFilter()
 	{
 		$this->disableCache();
-		
 		if ( $this->Session->check('Usuario.id_grupo') )
 		{
 			if ( $this->id_grupo != '*' && $this->Session->read('Usuario.id_grupo') != $this->id_grupo )
@@ -34,5 +33,7 @@ class AppController extends Controller
 			));
 		}
 	}
+	
+	//---------------------------------------------------------------------------
 }
 ?>
