@@ -19,40 +19,40 @@ class ReparacionSolicitudesController extends AppController
 	var $encabezado_reparacion_pdf =
 	'<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
 		<tr align="left">
-			<td width="85"><img src="/app/webroot/img/logouq.gif" alt="" /></td>
+			<td width="85"><img src="http://smuqplaf.uniquindio.edu.co/img/logouq.gif" alt="" /></td>
 			<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
 		</tr>
 		<tr align="right">
 			<td width="85"></td>
-			<td width="160"><b>Código:</b> A.AC-01.00.02.F.01</td>
+			<td width="200"><b>Código:</b> A.AC-01.00.02.F.01</td>
 			<td width="160"><b>Versión:</b> 3</td>
 			<td width="*"><b>Fecha:</b> 2010/5/12</td>
 		</tr>
-		<tr align="left"><td width="*" align="center"><b>FORMATO DE SOLICITUD DE REPARACIONES</b></td></tr>
+		<tr align="left"><td width="*" align="center" colspan="4"><b>FORMATO DE SOLICITUD DE REPARACIONES</b></td></tr>
 	</tbody></table>';
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function exportar_pdf($id_solicitud)
 	{
 		// Sobrescribimos para que no aparezcan los resultados de debuggin
 		// ya que sino daria un error al generar el pdf.
 		Configure::write('debug',0);
-		
+
 		// Se obtienen los datos de la solicitud.
 		$filas_tabla = $this->_info_solicitud_pdf($id_solicitud);
 		$this->set('filas_tabla',$filas_tabla);
 		$this->set('id_solicitud',$id_solicitud);
 		$this->render('exportar_pdf','exportar_pdf');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		if ( !empty($this->data) )
 		{
 			$this->data['ReparacionSolicitud']['estado'] = 'p';
@@ -83,7 +83,7 @@ class ReparacionSolicitudesController extends AppController
 	}
 
 	//--------------------------------------------------------------------------
-	
+
 	function _info_solicitud_pdf($id)
 	{
 		$this->ReparacionSolicitud->recursive = 1;
@@ -95,7 +95,7 @@ class ReparacionSolicitudesController extends AppController
 			list($anio, $mes, $dia) = split('-', $fecha);
 			$solicitud_info['ReparacionSolicitud']['fecha_solicitud'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
 			$nombre_oficina = mb_convert_case($solicitud_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
-			
+
 			$solucionada = '';
 			if ( $solicitud_info['ReparacionSolicitud']['estado'] == 'a' )
 			{
@@ -118,15 +118,15 @@ class ReparacionSolicitudesController extends AppController
 					<td width="*" colspan="2">'.$solicitud_info['ReparacionSolicitud']['observaciones_solucion'].'</td>
 				</tr>';
 			}
-			
+
 			$filas_tabla =
 			'<table width="100%" cellspacing="0" cellpadding="5"><tbody>
 				<tr align="left">
 					<td colspan="2">'.$this->encabezado_reparacion_pdf.'</td>
 				</tr>
-				
+
 				<tr><td height="10" colspan="3"></td></tr>
-				
+
 				<tr align="left">
 					<td colspan="2" width="*"><div>
 						<table width="100%" cellspacing="0" cellpadding="5" border="1"><tbody>
@@ -149,9 +149,9 @@ class ReparacionSolicitudesController extends AppController
 						</tbody></table>
 					</div></td>
 				</tr>
-				
+
 				<tr><td height="10" colspan="2"></td></tr>
-				
+
 				<tr align="left">
 					<td colspan="2" width="*"><div>
 						<table width="100%" cellspacing="0" cellpadding="5" border="1"><tbody>
@@ -177,10 +177,10 @@ class ReparacionSolicitudesController extends AppController
 							</tr>
 						</tbody></table>
 					</div></td>
-				</tr>	
-							
+				</tr>
+
 				<tr><td height="10" colspan="2"></td></tr>
-				
+
 				<tr align="left">
 					<td colspan="2" width="*"><div>
 						<table width="100%" cellspacing="0" cellpadding="5" border="1"><tbody>
@@ -200,14 +200,14 @@ class ReparacionSolicitudesController extends AppController
 					<td width="*" align="center"><b>FIRMA OPERARIO</b></td>
 				</tr>
 			</tbody></table>';
-			
+
 			return $filas_tabla;
 		}
 		return false;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function info_solicitud($id)
 	{
 		$this->autoLayout = false;
@@ -229,7 +229,7 @@ class ReparacionSolicitudesController extends AppController
 		$solicitudes_info[0]['ReparacionSolicitud']['created'] = $solicitudes_info[0][0]['created'];
 		return json_encode($this->_crear_filas($solicitudes_info));
 	}
-	
+
 	//--------------------------------------------------------------------------
 
 	function ver($id)
@@ -249,7 +249,7 @@ class ReparacionSolicitudesController extends AppController
 			$this->redirect(array('controller' => 'usuarios',
 										'action' => 'login'));
 		}
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -278,12 +278,12 @@ class ReparacionSolicitudesController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
-		
+
 		$this->ReparacionSolicitud->recursive = 1;
 		$solicitud_info = $this->ReparacionSolicitud->read(null, $id);
-		
+
 		if ( !empty($solicitud_info) )
 		{
 			$nombre_oficina = mb_convert_case($solicitud_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
@@ -322,17 +322,17 @@ class ReparacionSolicitudesController extends AppController
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		if ( !empty($id) )
 		{
 			$this->data['ReparacionSolicitud']['estado'] = 'a';
 			$this->data['ReparacionSolicitud']['archivada'] = date('Y-m-d H:i:s');
 			$solicitud_info = $this->ReparacionSolicitud->read(null, $id);
-			
+
 			if ( $this->ReparacionSolicitud->save($this->data) )
 			{
 				$this->Session->write('Controlador.resultado_guardar', 'exito');
-				
+
 				// Ahora debemos informar al usuario sobre la solución de su
 				// solicitud de servicio (EMAIL)
 				/*if ( $this->enviar_email() )
@@ -344,13 +344,13 @@ class ReparacionSolicitudesController extends AppController
 			{
 				$this->Session->write('Controlador.resultado_guardar', 'error');
 			}
-			
+
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function exportar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio, $criterio_oficina, $criterio_funcionario)
 	{
 		$datos = $this->requestAction('/reparacion_solicitudes/buscar_xls/'.$frase_busqueda.'/'.$criterio_fecha.'/'.$fecha_1.'/'.$fecha_2.'/'.$mostrar_solicitudes.'/'.$criterio_campo.'/'.$tipo_servicio);
@@ -358,9 +358,9 @@ class ReparacionSolicitudesController extends AppController
 		$this->set('total_registros',$datos['count']);
 		$this->render('exportar_xls','exportar_xls');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _cargar_tipos_servicio()
 	{
 		$tipos_servicio = array();
@@ -372,7 +372,7 @@ class ReparacionSolicitudesController extends AppController
 		}
 		return $tipos_servicio;
 	}
-	
+
 	//--------------------------------------------------------------------------
 
 	function buscar($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio, $criterio_oficina, $criterio_funcionario)
@@ -439,21 +439,21 @@ class ReparacionSolicitudesController extends AppController
 				$condiciones[$criterio] = $crit_valor;
 			}
 		}
-		
+
 		$solicitudes = $this->ReparacionSolicitud->find('all', array
 		(
 			'conditions' => $condiciones
 		));
 		return json_encode($this->_crear_filas($solicitudes));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function buscar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio, $criterio_oficina, $criterio_funcionario)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		// Construimos el Query de Búskeda.
 		$condiciones = array();
 		$pre_con = array();
@@ -510,16 +510,16 @@ class ReparacionSolicitudesController extends AppController
 				$condiciones[$criterio] = $crit_valor;
 			}
 		}
-		
+
 		$solicitudes_info = $this->ReparacionSolicitud->find('all', array
 		(
 			'conditions' => $condiciones
 		));
 		return $this->_crear_filas_xls($solicitudes_info);
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _crear_filas($solicitudes_info)
 	{
 		$datos_json['resultado'] = false;
@@ -544,9 +544,9 @@ class ReparacionSolicitudesController extends AppController
 		}
 		return $datos_json;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _crear_filas_xls($solicitudes_info)
 	{
 		$datos_json['resultado'] = false;
@@ -595,17 +595,18 @@ class ReparacionSolicitudesController extends AppController
 		}
 		return $datos_json;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function email()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		$this->Email->template = 'email/default';
-		
+
 		$id_solicitud = $this->Session->read('Email.id_solicitud');
 		$email_solicitante = $this->Session->read('Email.email_solicitante');
+
 		$solicitud_info = $this->ReparacionSolicitud->read(null, $id_solicitud);
 		if ( !empty($solicitud_info) )
 		{
@@ -615,13 +616,16 @@ class ReparacionSolicitudesController extends AppController
 			$fecha = $tmp[0];
 			list($anio, $mes, $dia) = split('-', $fecha);
 			$solicitud_info['ReparacionSolicitud']['fecha_solicitud'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
+			$solicitud_info['ReparacionSolicitud']['estado'] = $this->estados[$solicitud_info['ReparacionSolicitud']['estado']];
+			$solicitud_info['ReparacionSolicitud']['ejecutada'] = $this->estados_solucion[$solicitud_info['ReparacionSolicitud']['ejecutada']];
 			$this->set('solicitud', $solicitud_info);
+			$this->set('encabezado_pdf', $this->encabezado_reparacion_pdf);
 			$this->Email->to = $email_solicitante;
 			$this->Email->subject = 'Información: Solicitud de Reparación #'.$id_solicitud;
-			
+
 			//$this->Email->attach($fully_qualified_filename, optionally $new_name_when_attached);
 			// You can attach as many files as you like.
-			
+
 			$result = $this->Email->send();
 			if ( !$result )
 			{
@@ -637,7 +641,7 @@ class ReparacionSolicitudesController extends AppController
 			return 'false';
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
 }
 ?>

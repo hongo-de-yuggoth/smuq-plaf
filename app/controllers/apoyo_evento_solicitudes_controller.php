@@ -18,36 +18,36 @@ class ApoyoEventoSolicitudesController extends AppController
 	);
 	var $encabezado_apoyo_evento_pdf =
 	'<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
-	<tr align="left">
-		<td width="85"><img src="/app/webroot/img/logouq.gif" alt="" /></td>
-		<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
-	</tr>
-	<tr align="right" valign="middle">
-		<td width="85"></td>
-		<td width="160"><b>Código:</b> A.AC-01.00.03.F.01</td>
-		<td width="160"><b>Versión:</b> 3</td>
-		<td width="*"><b>Fecha:</b> 2010/5/12</td>
-	</tr>
-	<tr align="left"><td width="*" align="center"><b>FORMATO DE SOLICITUD DE APOYO A EVENTOS</b></td></tr>
+		<tr align="left">
+			<td width="85"><img src="http://smuqplaf.uniquindio.edu.co/img/logouq.gif" alt="" /></td>
+			<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
+		</tr>
+		<tr align="right" valign="middle">
+			<td width="85"></td>
+			<td width="200"><b>Código:</b> A.AC-01.00.03.F.01</td>
+			<td width="160"><b>Versión:</b> 3</td>
+			<td width="*"><b>Fecha:</b> 2010/5/12</td>
+		</tr>
+		<tr align="left"><td width="*" align="center" colspan="4"><b>FORMATO DE SOLICITUD DE APOYO A EVENTOS</b></td></tr>
 	</tbody></table>';
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function exportar_pdf($id_solicitud)
 	{
 		// Sobrescribimos para que no aparezcan los resultados de debuggin
 		// ya que sino daria un error al generar el pdf.
 		Configure::write('debug',0);
-		
+
 		// Se obtienen los datos de la solicitud.
 		$filas_tabla = $this->_info_solicitud_pdf($id_solicitud);
 		$this->set('filas_tabla',$filas_tabla);
 		$this->set('id_solicitud',$id_solicitud);
 		$this->render('exportar_pdf','exportar_pdf');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _info_solicitud_pdf($id)
 	{
 		$solicitud_info = $this->ApoyoEventoSolicitud->read(null, $id);
@@ -57,11 +57,11 @@ class ApoyoEventoSolicitudesController extends AppController
 			$fecha = $tmp[0];
 			list($anio, $mes, $dia) = split('-', $fecha);
 			$solicitud_info['ApoyoEventoSolicitud']['fecha_solicitud'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
-			
+
 			list($anio, $mes, $dia) = split('-', $solicitud_info['ApoyoEventoSolicitud']['fecha_evento']);
 			$solicitud_info['ApoyoEventoSolicitud']['fecha_evento'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
 			$nombre_oficina = mb_convert_case($solicitud_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
-			
+
 			$insumos = '';
 			$insumos_del_evento = $this->InsumosEvento->find('all', array
 			(
@@ -78,7 +78,7 @@ class ApoyoEventoSolicitudesController extends AppController
 				}
 				$insumos .= '</ul>';
 			}
-			
+
 			$solucionada = '';
 			if ( $solicitud_info['ApoyoEventoSolicitud']['estado'] == 'a' )
 			{
@@ -93,13 +93,13 @@ class ApoyoEventoSolicitudesController extends AppController
 					<td width="*" colspan="2">'.$solicitud_info['ApoyoEventoSolicitud']['observaciones_solucion'].'</td>
 				</tr>';
 			}
-			
+
 			$filas_tabla =
 			'<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 				<tr align="left">
 					<td colspan="2">'.$this->encabezado_apoyo_evento_pdf.'</td>
 				</tr>
-				
+
 				<tr><td height="15" colspan="2"></td></tr>
 				<tr align="left">
 					<td colspan="2" width="*"><div>
@@ -123,9 +123,9 @@ class ApoyoEventoSolicitudesController extends AppController
 						</tbody></table>
 					</div></td>
 				</tr>
-						
+
 				<tr><td height="15" colspan="2"></td></tr>
-				
+
 				<tr align="left">
 					<td colspan="2" width="*"><div>
 						<table width="100%" cellspacing="0" cellpadding="5" border="1"><tbody>
@@ -160,9 +160,9 @@ class ApoyoEventoSolicitudesController extends AppController
 						</tbody></table>
 					</div></td>
 				</tr>
-				
+
 				<tr><td height="15" colspan="2"></td></tr>
-				
+
 				<tr align="left">
 					<td colspan="2" width="*"><div>
 						<table width="100%" cellspacing="0" cellpadding="5" border="1"><tbody>
@@ -186,9 +186,9 @@ class ApoyoEventoSolicitudesController extends AppController
 		}
 		return false;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function info_solicitud($id)
 	{
 		$this->autoLayout = false;
@@ -199,7 +199,7 @@ class ApoyoEventoSolicitudesController extends AppController
 		));
 		return json_encode($this->_crear_filas($solicitudes_info));
 	}
-	
+
 	//--------------------------------------------------------------------------
 
 	function crear()
@@ -250,7 +250,7 @@ class ApoyoEventoSolicitudesController extends AppController
 	}
 
 	//--------------------------------------------------------------------------
-	
+
 	function ver($id)
 	{
 		$this->disableCache();
@@ -268,7 +268,7 @@ class ApoyoEventoSolicitudesController extends AppController
 			$this->redirect(array('controller' => 'usuarios',
 										'action' => 'login'));
 		}
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -297,27 +297,27 @@ class ApoyoEventoSolicitudesController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
-				
+
 		$solicitud_info = $this->ApoyoEventoSolicitud->read(null, $id);
-		
+
 		if ( !empty($solicitud_info) )
 		{
 			$tmp = split(' ', $solicitud_info['ApoyoEventoSolicitud']['created']);
 			$fecha = $tmp[0];
 			list($anio, $mes, $dia) = split('-', $fecha);
 			$solicitud_info['ApoyoEventoSolicitud']['fecha_solicitud'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
-			
+
 			$nombre_evento = mb_convert_case($solicitud_info['ApoyoEventoSolicitud']['nombre'], MB_CASE_TITLE, "UTF-8");
 			$solicitud_info['ApoyoEventoSolicitud']['nombre'] = $nombre_evento;
-			
+
 			$nombre_cenco = mb_convert_case($solicitud_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
 			$solicitud_info['CentroCosto']['Cencos_nombre'] = $nombre_cenco;
-				
+
 			list($anio, $mes, $dia) = split('-', $solicitud_info['ApoyoEventoSolicitud']['fecha_evento']);
 			$solicitud_info['ApoyoEventoSolicitud']['fecha_evento'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
-			
+
 			$insumos = '<ul>';
 			$insumos_del_evento = $this->InsumosEvento->find('all', array
 			(
@@ -333,7 +333,7 @@ class ApoyoEventoSolicitudesController extends AppController
 				}
 				$insumos .= '</ul>';
 			}
-			
+
 			$opciones_menu = $this->requestAction(array('controller' => 'adm_principal',
 																		  'action' => 'get_opciones_menu'));
 			$this->set('opciones_menu', $opciones_menu);
@@ -346,7 +346,7 @@ class ApoyoEventoSolicitudesController extends AppController
 				$this->set('display_div_ejecutada', 'block');
 				$this->set('display_select_ejecutada', 'none');
 				$this->set('ejecutada', $this->estados_solucion[$solicitud_info['ApoyoEventoSolicitud']['ejecutada']]);
-				
+
 			}
 			else
 			{
@@ -358,22 +358,22 @@ class ApoyoEventoSolicitudesController extends AppController
 	}
 
 	//--------------------------------------------------------------------------
-	
+
 	function archivar($id)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		if ( !empty($id) )
 		{
 			$this->data['ApoyoEventoSolicitud']['estado'] = 'a';
 			$this->data['ApoyoEventoSolicitud']['archivada'] = date('Y-m-d H:i:s');
 			$solicitud_info = $this->ApoyoEventoSolicitud->read(null, $id);
-			
+
 			if ( $this->ApoyoEventoSolicitud->save($this->data) )
 			{
 				$this->Session->write('Controlador.resultado_guardar', 'exito');
-				
+
 				// Ahora debemos informar al usuario sobre la solución de su
 				// solicitud de servicio (EMAIL)
 				/*if ( $this->enviar_email() )
@@ -385,13 +385,13 @@ class ApoyoEventoSolicitudesController extends AppController
 			{
 				$this->Session->write('Controlador.resultado_guardar', 'error');
 			}
-			
+
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function exportar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $criterio_oficina)
 	{
 		// Se obtienen los resultados de la acción+parametros
@@ -400,14 +400,14 @@ class ApoyoEventoSolicitudesController extends AppController
 		$this->set('total_registros',$datos['count']);
 		$this->render('exportar_xls','exportar_xls');
 	}
-	
+
 	//--------------------------------------------------------------------------
 
 	function buscar($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $criterio_oficina)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		// Construimos el Query de Búsqueda.
 		$condiciones = array();
 		$pre_con = array();
@@ -459,21 +459,21 @@ class ApoyoEventoSolicitudesController extends AppController
 				$condiciones[$criterio] = $crit_valor;
 			}
 		}
-		
+
 		$solicitudes = $this->ApoyoEventoSolicitud->find('all', array
 		(
 			'conditions' => $condiciones
 		));
 		return json_encode($this->_crear_filas($solicitudes));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function buscar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $criterio_oficina)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		// Construimos el Query de Búsqueda.
 		$condiciones = array();
 		$pre_con = array();
@@ -525,17 +525,17 @@ class ApoyoEventoSolicitudesController extends AppController
 				$condiciones[$criterio] = $crit_valor;
 			}
 		}
-		
+
 		$solicitudes_info = $this->ApoyoEventoSolicitud->find('all', array
 		(
 			'conditions' => $condiciones
 		));
-		
+
 		return $this->_crear_filas_xls($solicitudes_info);
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _crear_filas($solicitudes_info)
 	{
 		$datos_json['resultado'] = false;
@@ -550,7 +550,7 @@ class ApoyoEventoSolicitudesController extends AppController
 				$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['lugar'].'</td>';
 				$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['fecha_evento'].'</td>';
 				$filas_tabla .= '<td>'.$this->estados[$solicitud['ApoyoEventoSolicitud']['estado']].'</td></tr>';
-				
+
 				//$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['archivada'].'</td></tr>';
 			}
 			$datos_json['filas_tabla'] = $filas_tabla;
@@ -559,9 +559,9 @@ class ApoyoEventoSolicitudesController extends AppController
 		}
 		return $datos_json;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _crear_filas_xls($solicitudes_info)
 	{
 		$datos_json['resultado'] = false;
@@ -612,13 +612,13 @@ class ApoyoEventoSolicitudesController extends AppController
 		return $datos_json;
 	}
 	//--------------------------------------------------------------------------
-	
+
 	function email()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		$this->Email->template = 'email/default';
-		
+
 		$id_solicitud = $this->Session->read('Email.id_solicitud');
 		$email_solicitante = $this->Session->read('Email.email_solicitante');
 		$solicitud_info = $this->ApoyoEventoSolicitud->read(null, $id_solicitud);
@@ -628,7 +628,12 @@ class ApoyoEventoSolicitudesController extends AppController
 			$fecha = $tmp[0];
 			list($anio, $mes, $dia) = split('-', $fecha);
 			$solicitud_info['ApoyoEventoSolicitud']['fecha_solicitud'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
-			
+			list($anio, $mes, $dia) = split('-', $solicitud_info['ApoyoEventoSolicitud']['fecha_evento']);
+			$solicitud_info['ApoyoEventoSolicitud']['fecha_evento'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
+			$solicitud_info['ApoyoEventoSolicitud']['estado'] = $this->estados[$solicitud_info['ApoyoEventoSolicitud']['estado']];
+			$solicitud_info['CentroCosto']['Cencos_nombre'] = mb_convert_case($solicitud_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
+			$solicitud_info['ApoyoEventoSolicitud']['ejecutada'] = $this->estados_solucion[$solicitud_info['ApoyoEventoSolicitud']['ejecutada']];
+
 			$insumos = '<ul>';
 			$insumos_del_evento = $this->InsumosEvento->find('all', array
 			(
@@ -644,15 +649,16 @@ class ApoyoEventoSolicitudesController extends AppController
 				}
 				$insumos .= '</ul>';
 			}
-			
+
+			$this->set('encabezado_pdf', $this->encabezado_apoyo_evento_pdf);
 			$this->set('solicitud', $solicitud_info);
 			$this->set('insumos', $insumos);
 			$this->Email->to = $email_solicitante;
 			$this->Email->subject = 'Información: Solicitud de Apoyo a Eventos #'.$id_solicitud;
-			
+
 			//$this->Email->attach($fully_qualified_filename, optionally $new_name_when_attached);
 			// You can attach as many files as you like.
-			
+
 			$result = $this->Email->send();
 			if ( !$result )
 			{
@@ -668,7 +674,7 @@ class ApoyoEventoSolicitudesController extends AppController
 			return 'false';
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
 }
 ?>
