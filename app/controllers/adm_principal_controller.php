@@ -54,17 +54,17 @@ class AdmPrincipalController extends AppController
 		11=>'Noviembre',
 		12=>'Diciembre'
 	);
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function beforeRender()
 	{
 		//$this->disableCache();
 		$this->set('opciones_menu', $this->__crear_menu());
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function __crear_menu()
 	{
 		$opciones_menu = '';
@@ -72,34 +72,34 @@ class AdmPrincipalController extends AppController
 		{
 			$opciones_menu = $opciones_menu.'<li id="'.$opcion['id'].'"><a href="'.$opcion['link'].'">'.$opcion['titulo'].'</a></li>';
 		}
-		
+
 		return $opciones_menu;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function index()
 	{
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function get_opciones_menu()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		return $this->__crear_menu();
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_apoyo_eventos()
 	{
 		$this->loadModel('ApoyoEventoSolicitud');
 		$opciones_años = '';
 		$opciones_meses = '';
 		$oficinas = '';
-		
+
 		// primero obtenemos los años existentes.
 		$años = $this->ApoyoEventoSolicitud->query("SELECT YEAR(fecha_evento) AS year FROM apoyo_evento_solicitudes GROUP BY YEAR(fecha_evento)");
 		if ( !empty($años) )
@@ -110,13 +110,13 @@ class AdmPrincipalController extends AppController
 			}
 			$opciones_años = '<option value="0">Todos los años</option>'.$opciones_años;
 		}
-		
+
 		foreach ( $this->meses as $num_mes => $mes )
 		{
 			$opciones_meses .= '<option value="'.$num_mes.'">'.$mes.'</option>';
 		}
 		$opciones_meses = '<option value="0">Todos los meses</option>'.$opciones_meses;
-		
+
 		$oficinas_eventos = '';
 		$eventos = $this->ApoyoEventoSolicitud->find('all', array
 		(
@@ -136,15 +136,15 @@ class AdmPrincipalController extends AppController
 			}
 		}
 		$oficinas_eventos = '<option value="0">Todas las oficinas</option>'.$oficinas_eventos;
-		
+
 		$this->set('oficinas', $oficinas_eventos);
-		$this->set('opciones_años', $opciones_años);
+		$this->set('opciones_anios', $opciones_años);
 		$this->set('opciones_meses', $opciones_meses);
 		$this->set('opcion_seleccionada', 'consultar_apoyo_eventos');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_reparaciones()
 	{
 		$this->loadModel('ReparacionSolicitud');
@@ -155,7 +155,7 @@ class AdmPrincipalController extends AppController
 		$opciones_años = '';
 		$opciones_meses = '';
 		$opciones_servicios = '';
-		
+
 		// primero obtenemos los años existentes de las archivadas.
 		$años = $this->ReparacionSolicitud->query("SELECT YEAR(created) AS year FROM reparacion_solicitudes GROUP BY YEAR(created)");
 		if ( !empty($años) )
@@ -166,13 +166,13 @@ class AdmPrincipalController extends AppController
 			}
 			$opciones_años = '<option value="0">Todos los años</option>'.$opciones_años;
 		}
-		
+
 		foreach ( $this->meses as $num_mes => $mes )
 		{
 			$opciones_meses .= '<option value="'.$num_mes.'">'.$mes.'</option>';
 		}
 		$opciones_meses = '<option value="0">Todos los meses</option>'.$opciones_meses;
-		
+
 		$tipos_servicio = $this->TipoServicio->find('all');
 		if ( !empty($tipos_servicio) )
 		{
@@ -182,8 +182,8 @@ class AdmPrincipalController extends AppController
 			}
 			$opciones_servicios = '<option value="0">Todos los servicios</option>'.$opciones_servicios;
 		}
-		
-		// se obtienen los Cencos_id existentes 
+
+		// se obtienen los Cencos_id existentes
 		$oficinas_reparaciones = '';
 		$reparaciones = $this->ReparacionSolicitud->find('all', array
 		(
@@ -203,7 +203,7 @@ class AdmPrincipalController extends AppController
 			}
 		}
 		$oficinas_reparaciones = '<option value="0">Todas las oficinas</option>'.$oficinas_reparaciones;
-		
+
 		$funcionarios = $this->Funcionario->find('all', array
 		(
 			'fields' => array('id', 'nombre')
@@ -216,17 +216,17 @@ class AdmPrincipalController extends AppController
 			}
 			$opciones_funcionarios = '<option value="0">Todos los funcionarios</option>'.$opciones_funcionarios;
 		}
-		
+
 		$this->set('oficinas', $oficinas_reparaciones);
 		$this->set('funcionarios', $opciones_funcionarios);
-		$this->set('opciones_años', $opciones_años);
+		$this->set('opciones_anios', $opciones_años);
 		$this->set('opciones_meses', $opciones_meses);
 		$this->set('opciones_servicios', $opciones_servicios);
 		$this->set('opcion_seleccionada', 'consultar_reparaciones');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_reportes()
 	{
 		// Obtenemos los años existentes de ApoyoEventoSolicitud.
@@ -244,10 +244,10 @@ class AdmPrincipalController extends AppController
 				$html .= '<option value="'.$año[0]['year'].'">'.$año[0]['year'].'</option>';
 			}
 			$listado_años = substr($listado_años, 0, -1);
-			$this->set('listado_años_sae', $listado_años);
-			$this->set('select_año_inicial_sae', $html);
+			$this->set('listado_anios_sae', $listado_años);
+			$this->set('select_anio_inicial_sae', $html);
 		}
-		
+
 		$operarios = $this->Funcionario->find('all', array
 		(
 			'fields' => array('Funcionario.id', 'Funcionario.nombre', 'Funcionario.activo'),
@@ -271,7 +271,7 @@ class AdmPrincipalController extends AppController
 			}
 			$this->set('select_operarios', $html);
 		}
-		
+
 		// se obtienen los Cencos_id existentes
 		$oficinas_eventos = '';
 		$eventos = $this->ApoyoEventoSolicitud->find('all', array
@@ -292,7 +292,7 @@ class AdmPrincipalController extends AppController
 			}
 			$this->set('select_oficina_sae', $oficinas_eventos);
 		}
-		
+
 		$oficinas_reparaciones = '';
 		$reparaciones = $this->ReparacionSolicitud->find('all', array
 		(
@@ -312,7 +312,7 @@ class AdmPrincipalController extends AppController
 			}
 			$this->set('select_oficina_sr', $oficinas_reparaciones);
 		}
-		
+
 		// Obtenemos los años existentes de ReparacionSolicitud.
 		$this->loadModel('ReparacionSolicitud');
 		$años = $this->ReparacionSolicitud->query("SELECT YEAR(archivada) AS year FROM reparacion_solicitudes WHERE estado='a' GROUP BY YEAR(archivada)");
@@ -326,21 +326,21 @@ class AdmPrincipalController extends AppController
 				$html .= '<option value="'.$año[0]['year'].'">'.$año[0]['year'].'</option>';
 			}
 			$listado_años = substr($listado_años, 0, -1);
-			$this->set('listado_años_sr', $listado_años);
-			$this->set('select_año_inicial_sr', $html);
+			$this->set('listado_anios_sr', $listado_años);
+			$this->set('select_anio_inicial_sr', $html);
 		}
-		
+
 		$this->set('opcion_seleccionada', 'consultar_reportes');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear_solicitud_apoyo_evento()
 	{
 		$this->loadModel('CentroCosto');
 		$this->set('fecha_hoy', $this->Tiempo->fecha_espaniol(date('Y-n-j-N')));
 		$this->set('opcion_seleccionada', 'crear_solicitud_apoyo_evento');
-		
+
 		$id_usuario = $this->Session->read('Usuario.id');
 		$usuario = $this->Usuario->find('first', array
 		(
@@ -349,10 +349,10 @@ class AdmPrincipalController extends AppController
 		));
 		$cenco = $this->CentroCosto->findByCencosId($usuario['Usuario']['Cencos_id']);
 		$oficina = mb_convert_case($cenco['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
-		
+
 		$this->set('oficina', $oficina);
 		$this->set('cencos_id_usuario', $usuario['Usuario']['Cencos_id']);
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') && $this->Session->check('Controlador.resultado_email') )
 		{
@@ -385,14 +385,14 @@ class AdmPrincipalController extends AppController
 		}
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear_solicitud_reparacion()
 	{
 		$this->loadModel('TipoServicio');
 		$this->loadModel('CentroCosto');
-		
+
 		$id_usuario = $this->Session->read('Usuario.id');
 		$usuario = $this->Usuario->find('first', array
 		(
@@ -403,7 +403,7 @@ class AdmPrincipalController extends AppController
 		$oficina = mb_convert_case($cenco['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
 		$this->set('oficina', $oficina);
 		$this->set('cencos_id_usuario', $usuario['Usuario']['Cencos_id']);
-		
+
 		$tipos_servicio = $this->TipoServicio->find('all');
 		if ( !empty($tipos_servicio) )
 		{
@@ -416,7 +416,7 @@ class AdmPrincipalController extends AppController
 		$this->set('tipos_servicio', $opciones);
 		$this->set('opcion_seleccionada', 'crear_solicitud_reparacion');
 		$this->set('fecha_hoy', $this->Tiempo->fecha_espaniol(date('Y-n-j-N')));
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -447,16 +447,16 @@ class AdmPrincipalController extends AppController
 		}
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function administrar_funcionarios()
 	{
 		$this->set('opcion_seleccionada', 'administrar_funcionarios');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function actualizar_datos_usuario()
 	{
 		// Revisamos variables de Session.
@@ -487,13 +487,13 @@ class AdmPrincipalController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
-		
+
 		$this->loadModel('Usuario');
 		$this->Usuario->recursive = 2;
 		$this->Usuario->id = $this->Session->read('Usuario.id');
-		
+
 		$this->set('usuario_info', $this->Usuario->read());
 		$this->set('opcion_seleccionada', 'actualizar_datos_usuario');
 	}

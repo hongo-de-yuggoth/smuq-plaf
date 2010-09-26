@@ -26,7 +26,7 @@ echo $javascript->link('adm_principal/consultar_reparaciones');
 			<!-- HIDDEN INPUTS -->
 			<div id="escondidos"></div>
 			<input type="hidden" value="<?php echo $opcion_seleccionada; ?>" id="opcion_seleccionada"/>
-			
+
 			<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 				<tr align="left">
 					<td colspan="2">
@@ -89,7 +89,7 @@ echo $javascript->link('adm_principal/consultar_reparaciones');
 								</tr>
 							</tbody></table>
 						</div>
-						
+
 						<div id='criterio_fecha'>
 							<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 								<tr><td height="10" /></tr>
@@ -110,7 +110,7 @@ echo $javascript->link('adm_principal/consultar_reparaciones');
 											<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 												<tr align="left">
 													<td class='subtitulo' width='70'>Año:</td>
-													<td><select id="select_anio"><?php echo $opciones_años; ?></select></td>
+													<td><select id="select_anio"><?php echo $opciones_anios; ?></select></td>
 												</tr>
 												<tr><td height="10" colspan="4"/></tr>
 												<tr align="left">
@@ -119,7 +119,7 @@ echo $javascript->link('adm_principal/consultar_reparaciones');
 												</tr>
 											</tbody></table>
 										</div>
-										
+
 										<div id="fecha_rango" style="display:none" class='div_busqueda'>
 											<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 												<tr align="left">
@@ -133,7 +133,7 @@ echo $javascript->link('adm_principal/consultar_reparaciones');
 													<td></td>
 													<td class="textoError"><div id="error_fecha_inicial" style="display:none;" /></td>
 												</tr>
-												
+
 												<tr><td height="10" colspan="2"/></tr>
 												<tr align="left">
 													<td class='subtitulo'>Fecha final:</td>
@@ -154,26 +154,26 @@ echo $javascript->link('adm_principal/consultar_reparaciones');
 								<tr align="left" ><td class='linea' height='1' colspan="5" ></td></tr>
 							</tbody></table>
 						</div>
-						
+
 						<div id='div_boton_buscar' align='center' style='padding-top:25px'>
 							<input id='boton_buscar_solicitudes' type='button' value='Buscar solicitudes' />
 						</div>
 					</td>
 				</tr>
-				
+
 				<tr align="left">
 					<td width="100%" class="textoError" colspan="2"><div id="error_consulta" style="display:none;" /></td>
 				</tr>
-				
+
 				<tr><td height="10" /></tr>
 				<tr align="left" ><td class='linea' height='1' colspan="2" ></td></tr>
 				<tr><td height="10" /></tr>
-				
+
 				<tr align="left">
 					<td width="50%"><div id="total_registros" style="display:none;" /></td>
 					<td width="50%" align="right"><div id="archivo_xls" style="display:none;"><a href='#'><?php echo $html->image('excel.gif', array('border'=>0, 'alt'=>'Exportar a Excel', 'title'=>'Exportar a Excel')); ?></a></div></td>
 				</tr>
-				
+
 				<tr align="left">
 					<td colspan="2">
 						<div id='resultados' style='display:none; overflow:auto; width:580px; height:400px;'>

@@ -19,8 +19,8 @@ echo $javascript->link('adm_principal/consultar_reportes');
 	<div id="contenido_vista">
 		<form id="solicitudes" name="solicitudes" action="#" method="post" >
 			<input type="hidden" value="<?php echo $opcion_seleccionada; ?>" id="opcion_seleccionada"/>
-			<input type="hidden" value="<?php echo $listado_años_sae; ?>" id="listado_años_sae"/>
-			<input type="hidden" value="<?php echo $listado_años_sr; ?>" id="listado_años_sr"/>
+			<input type="hidden" value="<?php echo $listado_anios_sae; ?>" id="listado_anios_sae"/>
+			<input type="hidden" value="<?php echo $listado_anios_sr; ?>" id="listado_anios_sr"/>
 			<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 				<tr align="left">
 					<td>
@@ -64,7 +64,7 @@ echo $javascript->link('adm_principal/consultar_reportes');
 												</tr>
 											</tbody></table>
 										</div>
-										
+
 										<div id="div_servicios_oficina" style="display:none;">
 											<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 												<tr><td height="10" colspan="4"/></tr>
@@ -82,7 +82,7 @@ echo $javascript->link('adm_principal/consultar_reportes');
 												</tr>
 											</tbody></table>
 										</div>
-										
+
 										<div id="div_servicios_años" style="display:block;">
 											<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 												<tr><td height="10" colspan="4"/></tr>
@@ -93,17 +93,17 @@ echo $javascript->link('adm_principal/consultar_reportes');
 														<option value="rango">Rango de años</option>
 													</select></td>
 													<td colspan="2"><div id="div_rango_años_sae" style="display:none;">
-														del <select id="año_inicial_sae"><?php echo $select_año_inicial_sae ?></select> al
-														<select id="año_final_sae"></select>
+														del <select id="anio_inicial_sae"><?php echo $select_anio_inicial_sae ?></select> al
+														<select id="anio_final_sae"></select>
 													</div>
 													<div id="div_rango_años_sr" style="display:none;">
-														del <select id="año_inicial_sr"><?php echo $select_año_inicial_sr ?></select> al
-														<select id="año_final_sr"></select>
+														del <select id="anio_inicial_sr"><?php echo $select_anio_inicial_sr ?></select> al
+														<select id="anio_final_sr"></select>
 													</div></td>
 												</tr>
 											</tbody></table>
 										</div>
-										
+
 										<div id="div_servicios_meses" style="display:none;">
 											<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 												<tr><td height="10" colspan="4"/></tr>
@@ -112,10 +112,10 @@ echo $javascript->link('adm_principal/consultar_reportes');
 													<td width='60'>Del año:</td>
 													<td colspan="2">
 														<div id="div_meses_del_año_sae" style="display:none;">
-															<select id="año_meses_sae"><?php echo $select_año_inicial_sae ?></select>
+															<select id="anio_meses_sae"><?php echo $select_anio_inicial_sae ?></select>
 														</div>
 														<div id="div_meses_del_año_sr" style="display:none;">
-															<select id="año_meses_sr"><?php echo $select_año_inicial_sr ?></select>
+															<select id="anio_meses_sr"><?php echo $select_anio_inicial_sr ?></select>
 														</div>
 													</td>
 												</tr>
@@ -127,7 +127,7 @@ echo $javascript->link('adm_principal/consultar_reportes');
 						</div>
 					</td>
 				</tr>
-				
+
 				<tr align="left">
 					<td>
 						<div>
@@ -143,7 +143,7 @@ echo $javascript->link('adm_principal/consultar_reportes');
 						</div>
 					</td>
 				</tr>
-				
+
 				<tr align="left">
 					<td>
 						<div id='reporte' style='display:block; overflow:auto; width:580px;'>

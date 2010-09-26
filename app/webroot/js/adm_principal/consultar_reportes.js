@@ -38,14 +38,14 @@ function indexOf(array, s)
 
 function construir_select_anio_final(anio_inicial, solicitud)
 {
-	var temp = jQuery('#listado_años_'+solicitud).val();
+	var temp = jQuery('#listado_anios_'+solicitud).val();
 	var anios = temp.split(',');
 	var html = '';
 	for ( var i = indexOf(anios, anio_inicial); i < anios.length; i++ )
 	{
 		html += '<option value="'+anios[i]+'">'+anios[i]+'</option>';
 	}
-	jQuery('#año_final_'+solicitud).html(html);
+	jQuery('#anio_final_'+solicitud).html(html);
 }
 
 //-----------------------------------------------------------------------------
@@ -55,24 +55,24 @@ function construir_select_anio_final(anio_inicial, solicitud)
 jQuery(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
-	construir_select_anio_final(jQuery('#año_inicial_sae').val(), 'sae');
-	construir_select_anio_final(jQuery('#año_inicial_sr').val(), 'sr');
-	
+	construir_select_anio_final(jQuery('#anio_inicial_sae').val(), 'sae');
+	construir_select_anio_final(jQuery('#anio_inicial_sr').val(), 'sr');
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
-	
+
 	jQuery('#boton_cargar_reporte').click(function()
 	{
 		var parametro = '/';
 		var reporte_seleccionado = jQuery('#select_reporte').val();
-		
+
 		if ( reporte_seleccionado == 'solicitudes_apoyo_eventos_por_años' )
 		{
 			var param_anios = jQuery('#param_años').val();
 			parametro = parametro+param_anios;
 			if ( param_anios == 'rango' )
 			{
-				parametro = parametro+'/'+jQuery('#año_inicial_sae').val()+'/'+jQuery('#año_final_sae').val();
+				parametro = parametro+'/'+jQuery('#anio_inicial_sae').val()+'/'+jQuery('#anio_final_sae').val();
 			}
 		}
 		else if ( reporte_seleccionado == 'solicitudes_reparacion_por_años' )
@@ -81,30 +81,30 @@ jQuery(document).ready(function()
 			parametro = parametro+param_anios;
 			if ( param_anios == 'rango' )
 			{
-				parametro = parametro+'/'+jQuery('#año_inicial_sr').val()+'/'+jQuery('#año_final_sr').val();
+				parametro = parametro+'/'+jQuery('#anio_inicial_sr').val()+'/'+jQuery('#anio_final_sr').val();
 			}
 		}
 		else if ( reporte_seleccionado == 'solicitudes_apoyo_eventos_por_meses' )
 		{
-			parametro = parametro+jQuery('#año_meses_sae').val();
+			parametro = parametro+jQuery('#anio_meses_sae').val();
 		}
 		else if ( reporte_seleccionado == 'solicitudes_reparacion_por_meses' )
 		{
-			parametro = parametro+jQuery('#año_meses_sr').val();
+			parametro = parametro+jQuery('#anio_meses_sr').val();
 		}
 		else if ( reporte_seleccionado == 'solicitudes_reparacion_por_operario' )
 		{
-			parametro = parametro+jQuery('#operarios').val()+'/'+jQuery('#año_meses_sr').val();
+			parametro = parametro+jQuery('#operarios').val()+'/'+jQuery('#anio_meses_sr').val();
 		}
 		else if ( reporte_seleccionado == 'solicitudes_apoyo_eventos_por_oficina' )
 		{
-			parametro = parametro+jQuery('#oficina_sae').val()+'/'+jQuery('#año_meses_sae').val();
+			parametro = parametro+jQuery('#oficina_sae').val()+'/'+jQuery('#anio_meses_sae').val();
 		}
 		else if ( reporte_seleccionado == 'solicitudes_reparacion_por_oficina' )
 		{
-			parametro = parametro+jQuery('#oficina_sr').val()+'/'+jQuery('#año_meses_sr').val();
+			parametro = parametro+jQuery('#oficina_sr').val()+'/'+jQuery('#anio_meses_sr').val();
 		}
-		
+
 		jQuery('#img_reporte').attr('src', '/reportes_estadisticos/'+reporte_seleccionado+parametro);
 		jQuery('#reporte').show();
 	});
@@ -147,7 +147,7 @@ jQuery(document).ready(function()
 			jQuery('#div_servicios_meses').show();
 			jQuery('#div_meses_del_año_sr').show();
 			jQuery('#div_meses_del_año_sae').hide();
-			
+
 		}
 		else if ( reporte_seleccionado == 'solicitudes_apoyo_eventos_por_oficina' ||
 					reporte_seleccionado == 'solicitudes_reparacion_por_oficina' )
@@ -175,12 +175,12 @@ jQuery(document).ready(function()
 	//--------------------------------------------------------------------------
 	jQuery('#param_años').change(actualizar_param_anios);
 	//--------------------------------------------------------------------------
-	jQuery('#año_inicial_sae').change(function()
+	jQuery('#anio_inicial_sae').change(function()
 	{
 		construir_select_anio_final(jQuery(this).val(), 'sae');
 	});
 	//--------------------------------------------------------------------------
-	jQuery('#año_inicial_sr').change(function()
+	jQuery('#anio_inicial_sr').change(function()
 	{
 		construir_select_anio_final(jQuery(this).val(), 'sr');
 	});
