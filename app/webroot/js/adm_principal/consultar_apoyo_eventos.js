@@ -6,7 +6,7 @@ function cargar_tabla(datos_json)
 	if ( datos_json.resultado == true )
 	{
 		// la cargamos en la página.
-		var thead = '<thead><tr><th>N&uacute;mero<br>Solicitud&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Oficina</th><th>Solicitante</th><th>Lugar</th><th>Fecha Evento</th><th>Estado&nbsp;&nbsp;&nbsp;&nbsp;</th></tr></thead>';
+		var thead = '<thead><tr><th>N&uacute;mero<br>Solicitud&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Nombre del Evento</th><th>Oficina</th><th>Solicitante</th><th>Lugar</th><th>Fecha Evento</th><th>Estado&nbsp;&nbsp;&nbsp;&nbsp;</th></tr></thead>';
 		var tbody = '<tbody></tbody>';
 		jQuery('#tabla_resultados').empty().html(thead).append(tbody);
 		jQuery('#tabla_resultados tbody').html(datos_json.filas_tabla);
@@ -82,10 +82,10 @@ jQuery(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
 	jQuery('#r_anio_mes').attr('checked', 'true');
-	
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
-	
+
 	jQuery('#boton_cal_1').click(function()
 	{
 		displayCalendar(jQuery('#fecha_inicial').get(0),'yyyy-mm-dd',jQuery('#boton_cal_1').get(0));
@@ -94,19 +94,19 @@ jQuery(document).ready(function()
 	{
 		displayCalendar(jQuery('#fecha_final').get(0),'yyyy-mm-dd',jQuery('#boton_cal_2').get(0));
 	});
-	
+
 	jQuery('#r_anio_mes').change(function()
 	{
 		jQuery('div[class=div_busqueda]').hide();
 		jQuery('#fecha_anio_mes').show();
 	});
-	
+
 	jQuery('#r_rango_fecha').change(function()
 	{
 		jQuery('div[class=div_busqueda]').hide();
 		jQuery('#fecha_rango').show();
 	});
-	
+
 	jQuery('#select_anio').change(function()
 	{
 		if ( jQuery(this).val() == 0 )
@@ -119,7 +119,7 @@ jQuery(document).ready(function()
 			jQuery('#select_mes').removeAttr('disabled');
 		}
 	});
-	
+
 	jQuery('#boton_buscar_solicitudes').click(function()
 	{
 		jQuery('#busqueda').val(jQuery.trim(jQuery('#busqueda').val()));
@@ -172,7 +172,7 @@ jQuery(document).ready(function()
 				fecha_1 = jQuery('#select_anio').val();
 				fecha_2 = jQuery('#select_mes').val();
 			}
-			
+
 			if ( frase_busqueda == '' )
 			{
 				frase_busqueda = 'null';
@@ -182,7 +182,7 @@ jQuery(document).ready(function()
 			buscar_solicitudes(frase_busqueda, criterio_fecha, fecha_1, fecha_2, mostrar_solicitudes, criterio_campo, criterio_oficina);
 		}
 	});
-	
+
 	jQuery('#select_campo').change(function()
 	{
 		// Si se selecciona el Número de solicitud.

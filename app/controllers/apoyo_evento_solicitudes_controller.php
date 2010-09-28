@@ -543,15 +543,14 @@ class ApoyoEventoSolicitudesController extends AppController
 		{
 			foreach ( $solicitudes_info as $solicitud )
 			{
-				$nombre_standard = mb_convert_case($solicitud['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
+				$nombre_centro_costo = mb_convert_case($solicitud['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
 				$filas_tabla .= '<tr><td><a href="/apoyo_evento_solicitudes/ver/'.$solicitud['ApoyoEventoSolicitud']['id'].'" title="Ver información completa de la solicitud" alt="Ver información completa de la solicitud" target="_self">'.$solicitud['ApoyoEventoSolicitud']['id'].'</a></td>';
-				$filas_tabla .= '<td>'.$nombre_standard.'</td>';
+				$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['nombre'].'</td>';
+				$filas_tabla .= '<td>'.$nombre_centro_costo.'</td>';
 				$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['solicitante'].'</td>';
 				$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['lugar'].'</td>';
 				$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['fecha_evento'].'</td>';
 				$filas_tabla .= '<td>'.$this->estados[$solicitud['ApoyoEventoSolicitud']['estado']].'</td></tr>';
-
-				//$filas_tabla .= '<td>'.$solicitud['ApoyoEventoSolicitud']['archivada'].'</td></tr>';
 			}
 			$datos_json['filas_tabla'] = $filas_tabla;
 			$datos_json['count'] = count($solicitudes_info);
