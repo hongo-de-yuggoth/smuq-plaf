@@ -689,5 +689,20 @@ class ApoyoEventoSolicitudesController extends AppController
 	}
 
 	//--------------------------------------------------------------------------
+
+	function ultimas_solicitudes($cencos_id)
+	{
+		$this->autoLayout = false;
+		$this->autoRender = false;
+		$solicitudes = $this->ApoyoEventoSolicitud->find('all', array
+		(
+			'fields' => array('id', 'Cencos_id', 'solicitante', 'nombre', 'fecha_evento', 'created'),
+			'conditions' => array('Cencos_id'=>$cencos_id),
+			'limit' => 50
+		));
+		return $solicitudes;
+	}
+
+	//--------------------------------------------------------------------------
 }
 ?>

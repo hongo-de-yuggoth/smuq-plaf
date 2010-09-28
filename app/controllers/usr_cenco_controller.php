@@ -17,6 +17,12 @@ class UsrCencoController extends AppController
 		array('titulo' => 'Solicitar una Reparación',
 				'link' => '/usr_cenco/crear_solicitud_reparacion',
 				'id' => 'crear_solicitud_reparacion'),
+		array('titulo' => 'Ver las Solicitudes de Apoyo a Eventos',
+				'link' => '/usr_cenco/ver_solicitudes_apoyo_evento',
+				'id' => 'ver_solicitudes_apoyo_evento'),
+		array('titulo' => 'Ver las Solicitudes de Reparación',
+				'link' => '/usr_cenco/ver_solicitudes_reparacion',
+				'id' => 'ver_solicitudes_reparacion'),
 		array('titulo' => 'Actualizar Datos de Usuario',
 				'link' => '/usr_cenco/actualizar_datos_usuario',
 				'id' => 'actualizar_datos_usuario'),
@@ -27,23 +33,23 @@ class UsrCencoController extends AppController
 				'link' => '/logout',
 				'id' => 'cerrar')
 	);
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function beforeRender()
 	{
 		$this->set('opciones_menu', $this->_crear_menu());
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function get_opciones_menu()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		return $this->_crear_menu();
 	}
-	
+
 	//--------------------------------------------------------------------------
 
 	function _crear_menu()
@@ -55,18 +61,18 @@ class UsrCencoController extends AppController
 		}
 		return $opciones_menu;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function index(){}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear_solicitud_apoyo_evento()
 	{
 		$this->set('fecha_hoy', $this->Tiempo->fecha_espaniol(date('Y-n-j-N')));
 		$this->set('opcion_seleccionada', 'crear_solicitud_apoyo_evento');
-		
+
 		$id_usuario = $this->Session->read('Usuario.id');
 		$usuario = $this->Usuario->find('first', array
 		(
@@ -76,7 +82,7 @@ class UsrCencoController extends AppController
 		$cenco = $this->CentroCosto->findByCencosId($usuario['Usuario']['Cencos_id']);
 		$this->set('oficina', mb_convert_case($cenco['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8"));
 		$this->set('cencos_id_usuario', $usuario['Usuario']['Cencos_id']);
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') && $this->Session->check('Controlador.resultado_email') )
 		{
@@ -109,13 +115,13 @@ class UsrCencoController extends AppController
 		}
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear_solicitud_reparacion()
 	{
 		$this->loadModel('TipoServicio');
-		
+
 		$id_usuario = $this->Session->read('Usuario.id');
 		$usuario = $this->Usuario->find('first', array
 		(
@@ -125,7 +131,7 @@ class UsrCencoController extends AppController
 		$cenco = $this->CentroCosto->findByCencosId($usuario['Usuario']['Cencos_id']);
 		$this->set('oficina', mb_convert_case($cenco['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8"));
 		$this->set('cencos_id_usuario', $usuario['Usuario']['Cencos_id']);
-		
+
 		$tipos_servicio = $this->TipoServicio->find('all');
 		if ( !empty($tipos_servicio) )
 		{
@@ -138,7 +144,7 @@ class UsrCencoController extends AppController
 		$this->set('tipos_servicio', $opciones);
 		$this->set('opcion_seleccionada', 'crear_solicitud_reparacion');
 		$this->set('fecha_hoy', $this->Tiempo->fecha_espaniol(date('Y-n-j-N')));
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -169,9 +175,105 @@ class UsrCencoController extends AppController
 		}
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
+	function ver_solicitudes_apoyo_evento()
+	{
+		$this->set('opcion_seleccionada', 'ver_solicitudes_apoyo_evento');
+		/*
+		<div style="border-width:1px; border-style:solid; margin-bottom:10px; padding:2px;">
+			<table width="100%">
+				<tr><td width="100%" class="subtitulo_ver" colspan="2">Solicitud No. 15</td></tr>
+				<tr><td width="100%" class="fecha" align="left" colspan="2">Servicio solicitado el Martes 28 de Septiembre del 2010</td></tr>
+				<tr>
+					<td width="60" align="center"><?php echo $html->image('pdf.gif', array('border'=>0, 'alt'=>'Guardar el archivo PDF de esta solicitud.', 'title'=>'Guardar el archivo PDF de esta solicitud.')); ?></td>
+					<td width="*">
+						<table width="100%" valign="top" align="left">
+							<tr>
+								<td width="115" class="" valign="top"><b>Evento:</b></td>
+								<td>Nombre de evento standar XX</td>
+							</tr>
+							<tr>
+								<td width="115" class="" valign="top"><b>Fecha del Evento:</b></td>
+								<td>Martes 28 de Septiembre del 2010</td>
+							</tr>
+							<tr>
+								<td width="115" class="" valign="top"><b>Solicitante:</b></td>
+								<td>Maria de Los Angeles Velaskes</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		*/
+
+		$id_usuario = $this->Session->read('Usuario.id');
+		$usuario = $this->Usuario->find('first', array
+		(
+			'fields' => array('Usuario.Cencos_id'),
+			'conditions' => array('Usuario.id'=>$id_usuario)
+		));
+		$solicitudes = $this->requestAction('/apoyo_evento_solicitudes/ultimas_solicitudes/'.$usuario['Usuario']['Cencos_id']);
+		if ( !empty($solicitudes) )
+		{
+			$divs_solicitudes = '';
+			foreach ( $solicitudes as $solicitud )
+			{
+				$formato_solicitud =
+				'<div class="div_solicitud">
+					<table width="100%">
+						<tr><td width="100%" class="subtitulo_ver" colspan="2">Solicitud No.%s</td></tr>
+						<tr><td width="100%" class="fecha" align="left" colspan="2">Servicio solicitado el %s</td></tr>
+						<tr>
+							<td width="60" align="center"><?php echo $html->image("pdf.gif", array("border"=>0, "alt"=>"Guardar el archivo PDF de esta solicitud.", "title"=>"Guardar el archivo PDF de esta solicitud.")); ?></td>
+							<td width="*">
+								<table width="100%" valign="top" align="left">
+									<tr>
+										<td width="115" class="" valign="top"><b>Evento:</b></td>
+										<td>%s</td>
+									</tr>
+									<tr>
+										<td width="115" class="" valign="top"><b>Fecha del Evento:</b></td>
+										<td>%s</td>
+									</tr>
+									<tr>
+										<td width="115" class="" valign="top"><b>Solicitante:</b></td>
+										<td>%s</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>';
+				$nombre_evento = mb_convert_case($solicitud['ApoyoEventoSolicitud']['nombre'], MB_CASE_TITLE, "UTF-8");
+				$solicitud['ApoyoEventoSolicitud']['nombre'] = $nombre_evento;
+				$tmp = split(' ', $solicitud['ApoyoEventoSolicitud']['created']);
+				$fecha = $tmp[0];
+				list($anio, $mes, $dia) = split('-', $fecha);
+				$solicitud['ApoyoEventoSolicitud']['created'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
+				list($anio, $mes, $dia) = split('-', $solicitud['ApoyoEventoSolicitud']['fecha_evento']);
+				$solicitud['ApoyoEventoSolicitud']['fecha_evento'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
+				$div_solicitud = sprintf($formato_solicitud,$solicitud['ApoyoEventoSolicitud']['id'],$solicitud['ApoyoEventoSolicitud']['created'],$solicitud['ApoyoEventoSolicitud']['nombre'],$solicitud['ApoyoEventoSolicitud']['fecha_evento'],$solicitud['ApoyoEventoSolicitud']['solicitante']);
+				$divs_solicitudes .= $div_solicitud;
+			}
+
+			$this->set('divs_solicitudes', $divs_solicitudes);
+		}
+
+	}
+
+	//--------------------------------------------------------------------------
+
+	function ver_solicitudes_reparacion()
+	{
+
+	}
+
+	//--------------------------------------------------------------------------
+
+
 	function actualizar_datos_usuario()
 	{
 		// Revisamos variables de Session.
@@ -202,17 +304,17 @@ class UsrCencoController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
-		
+
 		$this->loadModel('Usuario');
 		$this->Usuario->recursive = 2;
 		$this->Usuario->id = $this->Session->read('Usuario.id');
-		
+
 		$this->set('usuario_info', $this->Usuario->read());
 		$this->set('opcion_seleccionada', 'actualizar_datos_usuario');
 	}
-	
+
 	//--------------------------------------------------------------------------
 }
 ?>

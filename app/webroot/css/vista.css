@@ -19,7 +19,7 @@
 }
 
 .clean-ok {
-	border:solid 1px #349534; 
+	border:solid 1px #349534;
 	background:#C9FFCA;
 	color:#008000;
 	font-weight:bold;
@@ -28,7 +28,7 @@
 	font-family: Arial, Helvetica, sans-serif;
 }
 .clean-error {
-	border:solid 1px #CC0000; 
+	border:solid 1px #CC0000;
 	background:#F7CBCA;
 	color:#CC0000;
 	font-weight:bold;
@@ -62,11 +62,11 @@
 .tip {
 		font-family: Tahoma, Arial, sans-serif;
 		font-size: 11px;
-  font-weight: normal
+		font-weight: normal
 }
 
 .fecha {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
-	font-weight: bold; 
+	font-weight: bold;
 }

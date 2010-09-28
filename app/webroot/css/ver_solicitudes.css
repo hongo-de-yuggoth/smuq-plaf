@@ -1,0 +1,18 @@
+.div_solicitud {
+		border-width: 1px;
+		border-style:solid;
+		margin-bottom:10px;
+		padding:2px;
+}
+
+.subtitulo_ver {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: bold;
+}
+
+.fecha {
+		font-family: Tahoma, Arial, sans-serif;
+		font-size: 11px;
+		font-weight: normal
+}
