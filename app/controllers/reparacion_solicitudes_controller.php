@@ -16,7 +16,21 @@ class ReparacionSolicitudesController extends AppController
 		0 => 'No ejecutada',
 		1 => 'Ejecutada'
 	);
-	var $encabezado_reparacion_pdf =
+	var $encabezado_pdf =
+	'<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
+		<tr align="left">
+			<td width="85"><img src="img/logouq.gif" alt="" /></td>
+			<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
+		</tr>
+		<tr align="right">
+			<td width="85"></td>
+			<td width="200"><b>Código:</b> A.AC-01.00.02.F.01</td>
+			<td width="160"><b>Versión:</b> 3</td>
+			<td width="*"><b>Fecha:</b> 2010/5/12</td>
+		</tr>
+		<tr align="left"><td width="*" align="center" colspan="4"><b>FORMATO DE SOLICITUD DE REPARACIONES</b></td></tr>
+	</tbody></table>';
+	var $encabezado_email =
 	'<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
 		<tr align="left">
 			<td width="85"><img src="http://smuqplaf.uniquindio.edu.co/img/logouq.gif" alt="" /></td>
@@ -122,7 +136,7 @@ class ReparacionSolicitudesController extends AppController
 			$filas_tabla =
 			'<table width="100%" cellspacing="0" cellpadding="5"><tbody>
 				<tr align="left">
-					<td colspan="2">'.$this->encabezado_reparacion_pdf.'</td>
+					<td colspan="2">'.$this->encabezado_pdf.'</td>
 				</tr>
 
 				<tr><td height="10" colspan="3"></td></tr>
@@ -619,7 +633,7 @@ class ReparacionSolicitudesController extends AppController
 			$solicitud_info['ReparacionSolicitud']['estado'] = $this->estados[$solicitud_info['ReparacionSolicitud']['estado']];
 			$solicitud_info['ReparacionSolicitud']['ejecutada'] = $this->estados_solucion[$solicitud_info['ReparacionSolicitud']['ejecutada']];
 			$this->set('solicitud', $solicitud_info);
-			$this->set('encabezado_pdf', $this->encabezado_reparacion_pdf);
+			$this->set('encabezado_pdf', $this->encabezado_email);
 			$this->Email->to = $email_solicitante;
 			$this->Email->subject = 'Información: Solicitud de Reparación #'.$id_solicitud;
 

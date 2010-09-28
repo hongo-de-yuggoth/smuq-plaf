@@ -16,7 +16,21 @@ class ApoyoEventoSolicitudesController extends AppController
 		0 => 'No ejecutada',
 		1 => 'Ejecutada'
 	);
-	var $encabezado_apoyo_evento_pdf =
+	var $encabezado_pdf =
+	'<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
+		<tr align="left">
+			<td width="85"><img src="img/logouq.gif" alt="" /></td>
+			<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
+		</tr>
+		<tr align="right" valign="middle">
+			<td width="85"></td>
+			<td width="200"><b>Código:</b> A.AC-01.00.03.F.01</td>
+			<td width="160"><b>Versión:</b> 3</td>
+			<td width="*"><b>Fecha:</b> 2010/5/12</td>
+		</tr>
+		<tr align="left"><td width="*" align="center" colspan="4"><b>FORMATO DE SOLICITUD DE APOYO A EVENTOS</b></td></tr>
+	</tbody></table>';
+	var $encabezado_email =
 	'<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
 		<tr align="left">
 			<td width="85"><img src="http://smuqplaf.uniquindio.edu.co/img/logouq.gif" alt="" /></td>
@@ -97,7 +111,7 @@ class ApoyoEventoSolicitudesController extends AppController
 			$filas_tabla =
 			'<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 				<tr align="left">
-					<td colspan="2">'.$this->encabezado_apoyo_evento_pdf.'</td>
+					<td colspan="2">'.$this->encabezado_pdf.'</td>
 				</tr>
 
 				<tr><td height="15" colspan="2"></td></tr>
@@ -649,7 +663,7 @@ class ApoyoEventoSolicitudesController extends AppController
 				$insumos .= '</ul>';
 			}
 
-			$this->set('encabezado_pdf', $this->encabezado_apoyo_evento_pdf);
+			$this->set('encabezado_pdf', $this->encabezado_email);
 			$this->set('solicitud', $solicitud_info);
 			$this->set('insumos', $insumos);
 			$this->Email->to = $email_solicitante;
