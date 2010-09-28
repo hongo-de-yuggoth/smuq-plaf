@@ -181,34 +181,6 @@ class UsrCencoController extends AppController
 	function ver_solicitudes_apoyo_evento()
 	{
 		$this->set('opcion_seleccionada', 'ver_solicitudes_apoyo_evento');
-		/*
-		<div style="border-width:1px; border-style:solid; margin-bottom:10px; padding:2px;">
-			<table width="100%">
-				<tr><td width="100%" class="subtitulo_ver" colspan="2">Solicitud No. 15</td></tr>
-				<tr><td width="100%" class="fecha" align="left" colspan="2">Servicio solicitado el Martes 28 de Septiembre del 2010</td></tr>
-				<tr>
-					<td width="60" align="center"><?php echo $html->image('pdf.gif', array('border'=>0, 'alt'=>'Guardar el archivo PDF de esta solicitud.', 'title'=>'Guardar el archivo PDF de esta solicitud.')); ?></td>
-					<td width="*">
-						<table width="100%" valign="top" align="left">
-							<tr>
-								<td width="115" class="" valign="top"><b>Evento:</b></td>
-								<td>Nombre de evento standar XX</td>
-							</tr>
-							<tr>
-								<td width="115" class="" valign="top"><b>Fecha del Evento:</b></td>
-								<td>Martes 28 de Septiembre del 2010</td>
-							</tr>
-							<tr>
-								<td width="115" class="" valign="top"><b>Solicitante:</b></td>
-								<td>Maria de Los Angeles Velaskes</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-		</div>
-		*/
-
 		$id_usuario = $this->Session->read('Usuario.id');
 		$usuario = $this->Usuario->find('first', array
 		(
@@ -223,13 +195,13 @@ class UsrCencoController extends AppController
 			{
 				$formato_solicitud =
 				'<div class="div_solicitud">
-					<table width="100%">
-						<tr><td width="100%" class="subtitulo_ver" colspan="2">Solicitud No.%s</td></tr>
-						<tr><td width="100%" class="fecha" align="left" colspan="2">Servicio solicitado el %s</td></tr>
+					<table width="100%%">
+						<tr><td width="100%%" class="subtitulo_ver" colspan="2">Solicitud No.%s</td></tr>
+						<tr><td width="100%%" class="fecha" align="left" colspan="2">Servicio solicitado el %s</td></tr>
 						<tr>
-							<td width="60" align="center"><?php echo $html->image("pdf.gif", array("border"=>0, "alt"=>"Guardar el archivo PDF de esta solicitud.", "title"=>"Guardar el archivo PDF de esta solicitud.")); ?></td>
+							<td width="60" align="center"><a href="/apoyo_evento_solicitudes/exportar_pdf/%s"><img border="0" title="Guardar el archivo PDF de esta solicitud." alt="Guardar el archivo PDF de esta solicitud." src="/img/pdf.gif" /></a></td>
 							<td width="*">
-								<table width="100%" valign="top" align="left">
+								<table width="100%%" valign="top" align="left">
 									<tr>
 										<td width="115" class="" valign="top"><b>Evento:</b></td>
 										<td>%s</td>
@@ -255,13 +227,21 @@ class UsrCencoController extends AppController
 				$solicitud['ApoyoEventoSolicitud']['created'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
 				list($anio, $mes, $dia) = split('-', $solicitud['ApoyoEventoSolicitud']['fecha_evento']);
 				$solicitud['ApoyoEventoSolicitud']['fecha_evento'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
-				$div_solicitud = sprintf($formato_solicitud,$solicitud['ApoyoEventoSolicitud']['id'],$solicitud['ApoyoEventoSolicitud']['created'],$solicitud['ApoyoEventoSolicitud']['nombre'],$solicitud['ApoyoEventoSolicitud']['fecha_evento'],$solicitud['ApoyoEventoSolicitud']['solicitante']);
+				$div_solicitud = sprintf
+				(
+					$formato_solicitud,
+					$solicitud['ApoyoEventoSolicitud']['id'],
+					$solicitud['ApoyoEventoSolicitud']['created'],
+					$solicitud['ApoyoEventoSolicitud']['id'],
+					$solicitud['ApoyoEventoSolicitud']['nombre'],
+					$solicitud['ApoyoEventoSolicitud']['fecha_evento'],
+					$solicitud['ApoyoEventoSolicitud']['solicitante']
+				);
 				$divs_solicitudes .= $div_solicitud;
 			}
 
 			$this->set('divs_solicitudes', $divs_solicitudes);
 		}
-
 	}
 
 	//--------------------------------------------------------------------------

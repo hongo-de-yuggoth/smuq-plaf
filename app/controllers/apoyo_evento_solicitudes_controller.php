@@ -698,7 +698,8 @@ class ApoyoEventoSolicitudesController extends AppController
 		(
 			'fields' => array('id', 'Cencos_id', 'solicitante', 'nombre', 'fecha_evento', 'created'),
 			'conditions' => array('Cencos_id'=>$cencos_id),
-			'limit' => 50
+			'limit' => 50,
+			'order' => array('ApoyoEventoSolicitud.created DESC')
 		));
 		return $solicitudes;
 	}
