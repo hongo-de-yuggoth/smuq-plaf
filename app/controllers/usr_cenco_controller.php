@@ -200,7 +200,7 @@ class UsrCencoController extends AppController
 						<tr><td width="100%%" class="fecha" align="left" colspan="2">Servicio solicitado el %s</td></tr>
 						<tr>
 							<td width="60" align="center"><a href="/apoyo_evento_solicitudes/exportar_pdf/%s"><img border="0" title="Guardar el archivo PDF de esta solicitud." alt="Guardar el archivo PDF de esta solicitud." src="/img/pdf.gif" /></a></td>
-							<td width="*">
+							<td width="300">
 								<table width="100%%" valign="top" align="left">
 									<tr>
 										<td width="115" class="" valign="top"><b>Evento:</b></td>
@@ -239,16 +239,79 @@ class UsrCencoController extends AppController
 				);
 				$divs_solicitudes .= $div_solicitud;
 			}
-
-			$this->set('divs_solicitudes', $divs_solicitudes);
 		}
+		else
+		{
+			$divs_solicitudes = '<div class="clean-error" style="margin-top:33px;">No se han realizado solicitudes de servicio.</div>';
+		}
+		$this->set('divs_solicitudes', $divs_solicitudes);
 	}
 
 	//--------------------------------------------------------------------------
 
 	function ver_solicitudes_reparacion()
 	{
-
+		$this->set('opcion_seleccionada', 'ver_solicitudes_reparacion');
+		$id_usuario = $this->Session->read('Usuario.id');
+		$usuario = $this->Usuario->find('first', array
+		(
+			'fields' => array('Usuario.Cencos_id'),
+			'conditions' => array('Usuario.id'=>$id_usuario)
+		));
+		$solicitudes = $this->requestAction('/reparacion_solicitudes/ultimas_solicitudes/'.$usuario['Usuario']['Cencos_id']);
+		if ( !empty($solicitudes) )
+		{
+			$divs_solicitudes = '';
+			foreach ( $solicitudes as $solicitud )
+			{
+				$formato_solicitud =
+				'<div class="div_solicitud">
+					<table width="100%%">
+						<tr><td width="100%%" class="subtitulo_ver" colspan="2">Solicitud No.%s</td></tr>
+						<tr><td width="100%%" class="fecha" align="left" colspan="2">Servicio solicitado el %s</td></tr>
+						<tr>
+							<td width="60" align="center"><a href="/reparacion_solicitudes/exportar_pdf/%s"><img border="0" title="Guardar el archivo PDF de esta solicitud." alt="Guardar el archivo PDF de esta solicitud." src="/img/pdf.gif" /></a></td>
+							<td width="300">
+								<table width="100%%" valign="top" align="left">
+									<tr>
+										<td width="115" class="" valign="top"><b>Lugar:</b></td>
+										<td>%s</td>
+									</tr>
+									<tr>
+										<td width="115" class="" valign="top"><b>Tipo de Servicio:</b></td>
+										<td>%s</td>
+									</tr>
+									<tr>
+										<td width="115" class="" valign="top"><b>Descripción:</b></td>
+										<td>%s</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>';
+				$tmp = split(' ', $solicitud['ReparacionSolicitud']['created']);
+				$fecha = $tmp[0];
+				list($anio, $mes, $dia) = split('-', $fecha);
+				$solicitud['ReparacionSolicitud']['created'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
+				$div_solicitud = sprintf
+				(
+					$formato_solicitud,
+					$solicitud['ReparacionSolicitud']['id'],
+					$solicitud['ReparacionSolicitud']['created'],
+					$solicitud['ReparacionSolicitud']['id'],
+					$solicitud['ReparacionSolicitud']['lugar'],
+					$solicitud['TipoServicio']['name'],
+					$solicitud['ReparacionSolicitud']['descripcion']
+				);
+				$divs_solicitudes .= $div_solicitud;
+			}
+		}
+		else
+		{
+			$divs_solicitudes = '<div class="clean-error" style="margin-top:33px;">No se han realizado solicitudes de servicio.</div>';
+		}
+		$this->set('divs_solicitudes', $divs_solicitudes);
 	}
 
 	//--------------------------------------------------------------------------

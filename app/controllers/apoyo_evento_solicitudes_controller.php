@@ -696,7 +696,7 @@ class ApoyoEventoSolicitudesController extends AppController
 		$this->autoRender = false;
 		$solicitudes = $this->ApoyoEventoSolicitud->find('all', array
 		(
-			'fields' => array('id', 'Cencos_id', 'solicitante', 'nombre', 'fecha_evento', 'created'),
+			'fields' => array('id', 'solicitante', 'nombre', 'fecha_evento', 'created'),
 			'conditions' => array('Cencos_id'=>$cencos_id),
 			'limit' => 50,
 			'order' => array('ApoyoEventoSolicitud.created DESC')

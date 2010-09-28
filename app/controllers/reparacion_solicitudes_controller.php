@@ -657,5 +657,22 @@ class ReparacionSolicitudesController extends AppController
 	}
 
 	//--------------------------------------------------------------------------
+
+	function ultimas_solicitudes($cencos_id)
+	{
+		$this->autoLayout = false;
+		$this->autoRender = false;
+		$solicitudes = $this->ReparacionSolicitud->find('all', array
+		(
+			'recursive' => 2,
+			'fields' => array('id', 'lugar', 'tipo_servicio', 'descripcion', 'created'),
+			'conditions' => array('Cencos_id'=>$cencos_id),
+			'limit' => 50,
+			'order' => array('ReparacionSolicitud.created DESC')
+		));
+		return $solicitudes;
+	}
+
+	//--------------------------------------------------------------------------
 }
 ?>
